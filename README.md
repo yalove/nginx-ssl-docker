@@ -10,6 +10,7 @@ cd nginx-ssl-docker.git
 docker-compose up -d
 
 你需要修改的
+
   *docker-compose.yml
       environment:
       

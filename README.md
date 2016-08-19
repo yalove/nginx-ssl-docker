@@ -11,23 +11,23 @@ docker-compose up -d
 
 你需要修改的
 
-*docker-compose.yml
+-docker-compose.yml
    environment:
    
-   - TZ=Asia/Shanghai
+   TZ=Asia/Shanghai
    
-   - LETSENCRYPT=true
+   LETSENCRYPT=true
    
-   - LE_EMAIL=excia000@gmail.com
+   LE_EMAIL=excia000@gmail.com
    
-   - LE_FQDN=yalove.me
+   LE_FQDN=yalove.me
    
    改为自己的email和domain 
    
-*app.conf
+-app.conf
    设置自己的nginx siteapp.conf
    
-*Dockerfiles\app
+-Dockerfiles\app
    blog目录为app
    
    Dockerfile 通过 ADD 加入app 修改为自己的app

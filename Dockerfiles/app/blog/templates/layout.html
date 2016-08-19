@@ -1,0 +1,43 @@
+{% from "helpers.html" import nav_link with context %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Yalove~{% endblock %}</title>
+    <meta name="name" content="content">
+    <meta name="name" content="content">
+    <meta name="name" content="content">
+    {% block head_extend %}{% endblock %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css',_external=True)}}">
+</head>
+
+<body>
+    
+    <nav>
+        <div class="nav_up">
+            {{ nav_link('index.indexs', 'icon-home', 'yalove') }}
+            {{ nav_link('topic.newpost', 'icon-edit', '') }}        
+        </div>
+        <div class="nav_down">
+            {{ nav_link('user.edit_user_profile', 'icon-setting', '')}}
+            {{ nav_link('user.logout', 'icon-logout', '')}}
+        </div>
+        
+    </nav>
+    
+    <header>
+        <div class="nav_header">
+            <ul>
+                <li><a href="">分类</a></li>
+                <li><a href="">标签</a></li>
+            </ul>
+        </div>
+        <div class="user_header">user</div>
+    </header>
+
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+
+    {% block extra_js %} {% endblock %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %} DashBoard {% endblock %}
+
+{% block content %}
+    {% if panels %}
+        {% for panel in panels %}
+            {{ panel.render()|safe() }}
+        {% endfor %}
+    {% endif %}
+
+<div class = "container">
+    <h1>HELLO, WORLD</h1>
+    <a class="" href=" {{url_for('dash.index',_external=True)}} ">{{ title }} </a>
+</div>
+
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

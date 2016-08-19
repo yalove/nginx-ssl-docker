@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class = "container">
+<a href="{{ current_user.url }}">{{ current_user.username }}</a>
+
+{% if current_user.avater %}
+    <tr><td><img src="{{ current_user.avater }}" alt="Avatar" height="100" width="100"> </td></tr>
+{% endif %}
+
+
+<form method="post" action="">
+	{{form.hidden_tag()}}
+	<h2>EditProfile</h2>
+	{{form.website}}
+	{{form.avater}}
+	{{form.signature}}
+	<button class="btn btn-lg btn-block" name="btn" type="submit" value="{{form._prefix}}btn">Save</button>
+</form>
+
+<form method="post" action="">
+	{{change_pw_form.hidden_tag()}}
+	<h2>ChangePassword</h2>
+	{{change_pw_form.password}}
+	{{change_pw_form.new_password}}
+	<button class="btn btn-lg btn-block" name="btn" type="submit" value="{{change_pw_form._prefix}}btn">Save</button>
+</form>
+
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

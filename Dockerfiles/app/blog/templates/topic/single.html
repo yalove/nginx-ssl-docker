@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% from "helpers.html" import render_blog_post, render_field, render_blog_comments, md_help %}
+
+{% block content %}
+
+<div class = "container">
+{{ render_blog_post(topic, user) }}
+</div>
+
+<div>
+	{{ render_blog_comments(comments) }}
+</div>
+
+<div>
+    <form action="" method="post" accept-charset="utf-8">
+		{{comment_form.hidden_tag()}}
+		{% for field in comment_form %}
+			{{ render_field(field) }}
+		{% endfor %}
+	    <button class="btn btn-lg btn-block" name="btn" type="submit" value="{{comment_form._prefix}}btn">Save</button>
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{{url_for('static',filename='editor_md/style.css',_external=True)}}">
+<link rel="stylesheet" href="{{url_for('static',filename='editor_md/editormd.preview.css',_external=True)}}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/zepto.min.js')}}"></script>
+	<script type="text/javascript">		
+		var jQuery = Zepto; 
+	</script>
+
+	<script src="{{url_for('static', filename='editor_md/editormd.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/marked.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/prettify.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/raphael.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/underscore.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/sequence-diagram.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/flowchart.min.js',_external=True)}}"></script>
+	<script src="{{url_for('static', filename='editor_md/lib/jquery.flowchart.min.js',_external=True)}}"></script>
+
+        <script type="text/javascript">
+            $(function() {
+                var testEditormdView;
+                        
+                testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                    htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                    emoji           : true,
+                    taskList        : true,
+                    tex             : true,  // 默认不解析
+                    flowChart       : true,  // 默认不解析
+                    sequenceDiagram : true,  // 默认不解析
+                });
+            });
+        </script>
+
+
+{% endblock %}

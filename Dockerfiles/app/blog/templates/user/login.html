@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% from "helpers.html" import render_field, render_content_field, md_help %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/style.css',_external=True)}}">
+</head>
+<body>
+  {% block content %}
+
+  	<div class = "auth">
+      <form action="" method="post" accept-charset="utf-8">
+              {{form.hidden_tag()}}
+              {% for field in form %}
+                    {{ render_field(field) }}
+              {% endfor %}
+              <button class="btn btn-lg btn-block" name="btn" type="submit" value="{{form._prefix}}btn">Save</button>
+      </form>
+  	</div>
+  	<div class="footer">
+  		yalove版权所有
+  	</div>
+  
+  {% endblock %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+

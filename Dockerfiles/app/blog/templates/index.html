@@ -1,0 +1,16 @@
+{% from "helpers.html" import render_posts_paginator with context %}
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div>{{ render_posts_paginator(paginate, 'index.indexs') }}</div>
+
+
+{% endblock %}
+
+{% block head_extend %}{% endblock %}
+
+{% block extra_js %}
+	<script src="{{url_for('static', filename='js/jquery.min.js',_external=True)}}"></script>
+
+{% endblock %}

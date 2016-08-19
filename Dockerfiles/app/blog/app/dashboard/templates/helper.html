@@ -1,0 +1,11 @@
+{% macro render_pagination(endpoint_func) %}
+    {% for p in iter_pages() %}
+        {% if p %}
+            {% if p!=page %}
+                <a href={{ url_for(endpoint_func,page=p) }}>{{p}}</a>
+            {% else %}
+                <strong>{{p}}</strong>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

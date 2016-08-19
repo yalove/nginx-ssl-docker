@@ -1,0 +1,16 @@
+version: '2'
+services:
+  nginx:
+    build: ./Dockerfiles/app
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ~/blog/sites:/etc/nginx/sites-enabled
+      - ~/blog/ssl:/etc/nginx/ssl
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - LETSENCRYPT=true
+      - LE_EMAIL=excia000@gmail.com
+      - LE_FQDN=yalove.me

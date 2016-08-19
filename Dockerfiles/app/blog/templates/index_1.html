@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div id="fullpage">
+		{% for post in paginate.items %}
+			<div class="section">
+				<div class="content" style="overflow: hidden">
+					<p>{{post.id}}</p>
+					<p>{{post.markdown}}</p>
+				</div>
+			</div>
+		{% endfor %}
+    </div>
+
+<div class = "container">
+	<h1>HELLO, WORLD</h1>
+  <p>time is {{ time }}</p>
+  <p>all users</p>
+  {{rr}}
+
+
+  {% for user in users %}
+    <p><a href="{{ url_for("user.profile",username=user.name ,_external=True) }}">{{ user.name }}</a></p>
+    {{zz}} <br/>
+    {{ nn }}
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block head_extend %}{% endblock %}
+
+{% block extra_js %}
+	<script src="{{url_for('static', filename='js/jquery.min.js',_external=True)}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.fullPage.min.js',_external=True)}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.easings.min.js',_external=True)}}"></script>
+
+
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+            	css3: true,
+            	scrollSpeed: 800,
+            	autoScrolling: true,
+            	fitToSection: true,
+            	easingcss3: 'ease',
+
+            	anchors: [],
+            	reocrdHistory: true,
+
+            	resize: true,
+            	sectionColor: [],
+
+            	fixedElements: '',
+
+            	sectionSelector: '.section',
+				slideSelector: '.slide',
+
+            	afterLoad: function(){
+            		$('#fullpage').append('<div class="section fp-section fp-table" style="height: 653px;">第四屏</div>');
+
+            	},
+
+            });
+        });
+    </script>
+
+{% endblock %}

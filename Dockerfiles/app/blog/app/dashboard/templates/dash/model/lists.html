@@ -1,0 +1,42 @@
+{% from 'helper.html' import render_pagination with context %}
+{% extends "layout.html" %}
+
+{% block title %} DashBoard {% endblock %}
+
+{% block content %}
+    {% if items %}
+        <table class="table table-bodered">
+            <caption></caption>
+            <thead>
+                <tr>
+                    {% for field in model.list_fields %}
+                       <th>{{field}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for item in items %}
+                    <tr>
+                   {% for field in model.list_fields %}
+                        <td>{{ item|attr(field) }}</td>
+                   {% endfor %}
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+{{form}}
+
+{% for field in form %}
+{{field.label}}
+
+{% endfor %}
+
+    {{ render_pagination(model.get_url_name('lists'))}}
+
+
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% macro render_field(field, toggle=False, with_label=True) %}
+{% if  field.type != "CSRFTokenField" %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        {% if not toggle and with_label %}
+        <label class="input-label">{{ field.label.text }}</label>
+        {% endif %}
+
+        {{ field }}
+
+        {% if field.errors %}{% for err in field.errors %}
+        <br/><label class="control-label">{{ err }}</label>
+        {% endfor %}{% endif %}
+    </div>
+{% endif %}
+{% endmacro %}
+
+{% macro render_content_field(field) %}
+    {{ field(style="display:none, wrap:hard") }}
+{% endmacro %}
+
+{% macro render_blog_posts(posts, user,i=0) %}
+{% for post in posts %}
+    {% if post.status %}
+    <article>
+        <div class="header">
+            <h1><a href="{{ url_for("topic.topic_single",topic_name=post.name, _external=True) }}"> {{ post.name }}</a></h1>
+            
+            <div class="article-meta">
+                {% if user.display_name %}
+                    {{ user.display_name }}
+                {% else %}
+                    {{ user.name }}
+                {% endif %}
+                {{ post.date }}
+            </div>
+        </div>
+        <div id="test-editormd-view{{loop.index}}">
+            <textarea style="display:none;" >{{ post.markdown[:300] }}</textarea>
+        </div>
+        <footer>
+                {{ post.comment_count }}
+        </footer>
+    </article>
+
+    {% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro render_blog_post(topic, user) %}
+{% if topic.status %}
+    <article>
+        <div class="header">
+            <h1>
+                {{ topic.title }}
+            </h1>
+            <div class="article-meta">
+                {% if user.display_name %}
+                    {{ user.display_name }}
+                {% else %}
+                    {{ user.name }}
+                {% endif %}
+                {{ topic.date }}
+            </div>
+        </div>
+        <div id="test-editormd-view">
+            {% if topic.html %}
+                这是html
+                {{ topic.html|safe }}   
+            {% elif topic.markdown %}
+                <textarea style="display:none;" >{{ topic.markdown }}</textarea>
+            {% endif %}
+        </div>
+        <footer>
+            {{ topic.comment_count }}
+        </footer>
+    </article>
+{% endif %}
+{% endmacro %}
+
+{% macro render_blog_comments(comments) %}
+{% for comment in comments %}
+    <li>{{ comment.author }}</li>
+    <li>{{ comment.author_url }}</li>
+    <li>{{ comment.author_ip }}</li>
+    <li>{{ comment.agent }}</li>
+    <li>{{ comment.date }}</li>
+    <li>{{ comment.markdown }}</li>
+{% endfor %}
+{% endmacro %}
+
+{% macro render_posts_paginator(paginate, endpoint) %}
+    {% for post in paginate.items %}
+        {{ post.name }}<br>
+        {{ post.html|safe }}<br>
+        {{ post.date }}<br>
+        {{ post.comment_count }}<br>
+        {{ post.user }}<br>
+    {% endfor %}
+
+    {% for p in paginate.iter_pages() %}
+        {% if p %}
+            {% if p!=paginate.page %}
+                <a href={{ url_for(endpoint,page=p) }}>{{p}}</a>
+            {% else %}
+                <strong>{{p}}</strong>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro nav_link(endpoint, icon, text) %}
+{% if request.endpoint.endswith(endpoint) %}
+    <a class="active" href="{{ url_for(endpoint) }}"><i class="{{ icon }}"></i></a>
+{% else %}
+    <a href="{{ url_for(endpoint) }}"><i class="{{icon}}"></i></a>
+{% endif %}
+{% endmacro %}
+

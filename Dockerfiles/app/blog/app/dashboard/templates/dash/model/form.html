@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %} DashBoard {% endblock %}
+
+{% block content %}
+{{z}}
+    {{items}} {{page}} {{pages}} {{total}}
+
+    <br/>
+    <input type="datetime-local" name="x" value="" placeholder="">
+    <table>
+        <caption>table title and/or explanatory text</caption>
+
+    {% for form in forms %}
+        {{ form.csrf_token }}
+        {% if form.csrf_token.error %}
+            {% for error in form.csrf_token.error %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+
+        <tr>
+        {% for field in form %}
+            <td>
+            {% if field.widget.__class__.__name__ == 'HiddenInput' %}
+                {{ field }}
+            {% elif field.type == 'FormField' %}
+                {{ field }}
+            {% else %}
+                {% if field.errors %}
+                {% endif%}
+                {{ field.label }}
+                {{ field }}
+            {% endif %}
+            </td>
+        {% endfor %}
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

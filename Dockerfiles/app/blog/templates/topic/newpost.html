@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% from "helpers.html" import render_field, render_content_field, md_help %}
+
+{% block content %}
+
+
+
+	<h1>HELLO, WORLD</h1>
+    <form action="" method="post">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {{ form.hidden_tag() }}
+        {{ render_field(form.title) }}
+        <div id="test-editormd">
+        {{ render_content_field(form.content) }}
+        </div>
+        
+        <button class="btn btn-lg btn-block" name="btn" type="submit" value="{{form._prefix}}btn">Save</button>
+
+    </form>
+
+
+
+
+{% endblock %}
+
+{% block head_extend %}
+<link rel="stylesheet" href="{{url_for('static',filename='editor_md/style.css',_external=True)}}">
+<link rel="stylesheet" href="{{url_for('static',filename='editor_md/editormd.css',_external=True)}}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{url_for('static', filename='js/jquery.min.js',_external=True)}}"></script>
+<script src="{{url_for('static', filename='editor_md/editormd.min.js',_external=True)}}"></script>
+
+
+<script type="text/javascript">
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width   : "90%",
+            height  : 640,
+            syncScrolling : "true",
+            path    : "static/editor_md/lib/",
+            saveHTMLToTextarea : true,
+        });
+        
+        /*
+        // or
+        testEditor = editormd({
+            id      : "test-editormd",
+            width   : "90%",
+            height  : 640,
+            path    : "../lib/"
+        });
+        */
+    });
+
+</script>
+
+{% endblock %}

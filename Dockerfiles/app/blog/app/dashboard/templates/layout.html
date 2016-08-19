@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block header %}
+        <title>{% block title %}Yalove~{% endblock %}</title>
+        <meta name="name" content="content">
+        <meta name="name" content="content">
+        <meta name="name" content="content">
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    {% endblock %}
+</head>
+
+<body>
+
+    {% block sidebar %}
+        <section class='sidebar'>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for("index.indexs") }}" title="Yalove">Yalove</a></li>
+                    <li><a href="{{url_for("user.edit_user_profile")}}" title="Profile">Profile</a></li>
+                    <li><a href="{{url_for("user.logout")}}" title="Logout">Logout</a></li>
+                    <li><a href="{{url_for("user.login")}}" title="Login">Login</a></li>
+                    <li><a href="{{url_for("user.upload")}}" title="upload">upload</a></li>
+                </ul>
+            </nav>
+        </section>
+    {% endblock %}
+
+    {% block content %}
+        <section class='content'>
+            <article class='article'>
+            </article>
+        </section>
+    {% endblock %}
+
+
+</body>
+</html>
